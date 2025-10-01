@@ -13,18 +13,22 @@ EHR CSV (synthetic) → BigQuery (raw) → Data Quality (5) → BigQuery (curate
 **Vista**: `ehr.vw_readmissions` (incluye `length_of_stay_min` y `readmitted_30d`)
 
 ## Estructura
+
+<pre>
 ehr-fhir-readmissions/
 ├─ README.md
 ├─ notebooks/
-│ └─ etl_ehr_to_bigquery.ipynb
+│  └─ etl_ehr_to_bigquery.ipynb
 ├─ sql/
-│ └─ dq_rules.sql
+│  └─ dq_rules.sql
 ├─ fhir/
-│ ├─ patient_example.json
-│ ├─ encounter_example.json
-│ └─ observation_example.json
+│  ├─ patient_example.json
+│  ├─ encounter_example.json
+│  └─ observation_example.json
 └─ powerbi/
-└─ KPI.png
+   └─ KPI.png
+</pre>
+
 
 
 ## Snapshot (KPI)
