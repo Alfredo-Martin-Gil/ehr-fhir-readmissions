@@ -21,7 +21,7 @@ EHR CSV (synthetic) → BigQuery (raw) → Data Quality (5) → BigQuery (curate
 
 ## Cómo reproducir (rápido)
 
-1) Abre el notebook en Colab: [`notebooks/etl_ehr_to_bigquery.ipynb`](notebooks/etl_ehr_to_bigquery.ipynb)
+1) Abre el notebook en Colab: [notebooks/etl_ehr_to_bigquery.ipynb](notebooks/etl_ehr_to_bigquery.ipynb)
 2) En la primera celda, verifica:
    - `PROJECT_ID = "apt-philosophy-473810-k9"`
    - `LOCATION = "US"`
