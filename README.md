@@ -1,18 +1,15 @@
 # EHR → BigQuery (GCP) → FHIR → Power BI (30-day Readmissions)
 
-Minimal, reproducible pathway to ingest synthetic EHR data into **BigQuery**, apply **data-quality** checks, normalize to **FHIR** (Patient / Observation / Encounter), and build a **Power BI** dashboard for **30-day readmissions** (QI).
+Demo **mínima y reproducible** para:
+1) Ingerir datos EHR sintéticos a **BigQuery** con `pandas`.
+2) Aplicar **5 reglas** de *data quality*.
+3) Exponer una **vista analítica** con KPI de **readmisiones a 30 días**.
+4) Mantener referencias a **FHIR** (Patient / Encounter / Observation) con ejemplos JSON.
 
-## Architecture
-- Ingest: EHR CSV → BigQuery (LOAD DATA)
-- Data quality: null checks, value ranges, referential integrity, duplicates, timestamps (invalid rows −92%)
-- Interop: mapping to FHIR (Patient / Observation / Encounter)
-- Analytics: curated tables / views (readmission risk, cohorts)
-- BI: Power BI dashboard (30-day readmissions)
+## Arquitectura (resumen)
+EHR CSV (synthetic) → BigQuery (raw) → Data Quality (5) → BigQuery (curated) → FHIR refs → Vista `vw_readmissions` → Power BI (KPI 30d)
 
-flowchart LR
-  A["EHR CSV"] --> B["BigQuery raw"]
-  B --> C{{"Data Quality"}}
-  C -->|valid| D["BigQuery curated"]
-  D --> E["FHIR resources (Patient, Observation, Encounter)"]
-  E --> F["Analytical Views"]
-  F --> G["Power BI Dashboard"]
+**Tablas**: `patients`, `encounters`, `vitals`  
+**Vista**: `ehr.vw_readmissions` (incluye `length_of_stay_min` y `readmitted_30d`)
+
+## Estructura
