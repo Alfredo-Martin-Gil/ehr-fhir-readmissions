@@ -1,5 +1,9 @@
 # EHR → BigQuery (GCP) → FHIR → Power BI (30-day Readmissions)
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Alfredo-Martin-Gil/ehr-fhir-readmissions/blob/main/notebooks/etl_ehr_to_bigquery.ipynb)
+
+
+
 Demo **mínima y reproducible** para:
 1) Ingerir datos EHR sintéticos a **BigQuery** con `pandas`.
 2) Aplicar **5 reglas** de *data quality*.
