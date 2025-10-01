@@ -15,7 +15,10 @@ EHR CSV (synthetic) → BigQuery (raw) → Data Quality (5) → BigQuery (curate
 ## Estructura
 ## Snapshot (KPI)
 
-![KPI 30-day readmissions](powerbi/kpi_readmissions.png)
+<p align="left">
+  <img src="powerbi/kpi_readmissions.png" alt="KPI 30-day readmissions" width="520">
+</p>
+
 ## Cómo reproducir (rápido)
 
 1) Abre el notebook en Colab: [`notebooks/etl_ehr_to_bigquery.ipynb`](notebooks/etl_ehr_to_bigquery.ipynb)
