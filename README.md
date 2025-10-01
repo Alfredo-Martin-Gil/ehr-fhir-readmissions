@@ -16,3 +16,14 @@ EHR CSV (synthetic) → BigQuery (raw) → Data Quality (5) → BigQuery (curate
 ## Snapshot (KPI)
 
 ![KPI 30-day readmissions](powerbi/kpi_readmissions.png)
+## Cómo reproducir (rápido)
+
+1) Abre el notebook en Colab: [`notebooks/etl_ehr_to_bigquery.ipynb`](notebooks/etl_ehr_to_bigquery.ipynb)
+2) En la primera celda, verifica:
+   - `PROJECT_ID = "apt-philosophy-473810-k9"`
+   - `LOCATION = "US"`
+3) Ejecuta las celdas en orden:
+   - Setup BigQuery → Crear dataset `ehr` → Crear tablas y cargar muestras
+   - Data Quality (5 reglas) → Crear vista `ehr.vw_readmissions` → KPI de readmisiones
+4) (Opcional) Ejecuta las reglas SQL desde `sql/dq_rules.sql` en BigQuery.
+5) (Opcional) Conecta Power BI a BigQuery y usa la vista `ehr.vw_readmissions` para el KPI.
