@@ -1,0 +1,8 @@
+{
+  "resourceType": "Patient",
+  "id": "P0001",
+  "identifier": [{ "system": "urn:mrn", "value": "MRN-0001" }],
+  "name": [{ "use": "official", "family": "Collins", "given": ["Andrew"] }],
+  "gender": "male",
+  "birthDate": "1963-06-15"
+}
