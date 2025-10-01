@@ -13,3 +13,6 @@ EHR CSV (synthetic) → BigQuery (raw) → Data Quality (5) → BigQuery (curate
 **Vista**: `ehr.vw_readmissions` (incluye `length_of_stay_min` y `readmitted_30d`)
 
 ## Estructura
+## Snapshot (KPI)
+
+![KPI 30-day readmissions](powerbi/kpi_readmissions.png)
