@@ -9,11 +9,10 @@ Minimal, reproducible pathway to ingest synthetic EHR data into **BigQuery**, ap
 - Analytics: curated tables / views (readmission risk, cohorts)
 - BI: Power BI dashboard (30-day readmissions)
 
-```mermaid
 flowchart LR
-  A[EHR CSV] --> B[BigQuery raw]
-  B --> C{Data Quality}
-  C -->|valid| D[BigQuery curated]
-  D --> E[FHIR resources (Patient/Observation/Encounter)]
-  E --> F[Analytical Views]
-  F --> G[Power BI Dashboard]
+  A["EHR CSV"] --> B["BigQuery raw"]
+  B --> C{{"Data Quality"}}
+  C -->|valid| D["BigQuery curated"]
+  D --> E["FHIR resources (Patient, Observation, Encounter)"]
+  E --> F["Analytical Views"]
+  F --> G["Power BI Dashboard"]
