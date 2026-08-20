@@ -1,55 +1,67 @@
-# EHR → BigQuery (GCP) → FHIR → Power BI (30-day Readmissions)
+# Synthetic EHR to FHIR readmission workflow
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Alfredo-Martin-Gil/ehr-fhir-readmissions/blob/main/notebooks/etl_ehr_to_bigquery.ipynb)
+[![CI](https://github.com/Alfredo-Martin-Gil/ehr-fhir-readmissions/actions/workflows/ci.yml/badge.svg)](https://github.com/Alfredo-Martin-Gil/ehr-fhir-readmissions/actions/workflows/ci.yml)
 
+A small, deterministic interoperability demonstration that converts tabular,
+fully synthetic encounter data into a FHIR R4-shaped transaction Bundle and a
+30-day readmission feature table.
 
+## What is implemented
 
-Demo **mínima y reproducible** para:
-1) Ingerir datos EHR sintéticos a **BigQuery** con `pandas`.
-2) Aplicar **5 reglas** de *data quality*.
-3) Exponer una **vista analítica** con KPI de **readmisiones a 30 días**.
-4) Mantener referencias a **FHIR** (Patient / Encounter / Observation) con ejemplos JSON.
+- six fictional encounters for four fictional patients;
+- five explicit data-quality checks before transformation;
+- deterministic Patient, Encounter and Observation resources;
+- a derived encounter-level table with a mechanically calculated
+  `readmitted_within_30d` label;
+- tests covering quality rules, references, temporal logic and reproducibility;
+- dependency-light CI on Python 3.11 and 3.12.
 
-## Arquitectura (resumen)
-EHR CSV (synthetic) → BigQuery (raw) → Data Quality (5) → BigQuery (curated) → FHIR refs → Vista `vw_readmissions` → Power BI (KPI 30d)
+## Reproduce locally
 
-**Tablas**: `patients`, `encounters`, `vitals`  
-**Vista**: `ehr.vw_readmissions` (incluye `length_of_stay_min` y `readmitted_30d`)
+```bash
+python scripts/build_artifacts.py --check
+python -m unittest discover -s tests -v
+```
 
-## Estructura
+`--check` rebuilds the artefacts in memory and fails if the committed files
+differ. To intentionally regenerate them after changing source data:
 
-<pre>
-ehr-fhir-readmissions/
-├─ README.md
-├─ notebooks/
-│  └─ etl_ehr_to_bigquery.ipynb
-├─ sql/
-│  └─ dq_rules.sql
-├─ fhir/
-│  ├─ patient_example.json
-│  ├─ encounter_example.json
-│  └─ observation_example.json
-└─ powerbi/
-   └─ KPI.png
-</pre>
+```bash
+python scripts/build_artifacts.py
+```
 
+## Repository map
 
+- `data/source/synthetic_encounters.csv`: authoritative fictional source rows
+- `src/ehr_fhir/`: quality, transformation and serialization logic
+- `fhir/synthetic_bundle.json`: generated FHIR-shaped demonstration Bundle
+- `data/derived/readmission_features.csv`: generated analytical table
+- `docs/data_contract.md`: field definitions and transformation rules
+- `tests/`: executable evidence
 
-## Snapshot (KPI)
+## Evidence and limits
 
-<p align="left">
-  <img src="https://github.com/Alfredo-Martin-Gil/ehr-fhir-readmissions/blob/main/powerbi/KPI.png?raw=true" alt="KPI 30-day readmissions" width="520">
-</p>
+This is a software and data-engineering demonstration, not a prediction model.
+The readmission label is derived from the next synthetic encounter; no
+performance metric is reported. All people, identifiers, dates and observations
+are fictional.
 
+The JSON follows the project’s documented FHIR R4 subset and passes repository
+structural checks. It has not been validated by an external FHIR validator or
+against a national implementation guide. The project is not clinically
+validated, deployed, production-ready, or evidence of improved outcomes,
+regulatory compliance or medical-device status.
 
-## Cómo reproducir (rápido)
+The previous BigQuery notebook and Power BI image are retained as historical
+artefacts only; they are not part of the reproducible path and do not evidence a
+live cloud pipeline or dashboard.
 
-1) Abre el notebook en Colab: [notebooks/etl_ehr_to_bigquery.ipynb](notebooks/etl_ehr_to_bigquery.ipynb)
-2) En la primera celda, verifica:
-   - `PROJECT_ID = "apt-philosophy-473810-k9"`
-   - `LOCATION = "US"`
-3) Ejecuta las celdas en orden:
-   - Setup BigQuery → Crear dataset `ehr` → Crear tablas y cargar muestras
-   - Data Quality (5 reglas) → Crear vista `ehr.vw_readmissions` → KPI de readmisiones
-4) (Opcional) Ejecuta las reglas SQL desde `sql/dq_rules.sql` en BigQuery.
-5) (Opcional) Conecta Power BI a BigQuery y usa la vista `ehr.vw_readmissions` para el KPI.
+## Resumen en español
+
+Demostración reproducible de interoperabilidad con datos enteramente sintéticos.
+Genera recursos con estructura FHIR y una etiqueta analítica de reingreso a 30
+días. No es un modelo predictivo, protocolo clínico ni sistema validado.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
