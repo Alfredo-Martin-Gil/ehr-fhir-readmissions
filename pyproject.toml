@@ -1,0 +1,8 @@
+[project]
+name = "ehr-fhir-readmissions"
+version = "0.1.0"
+description = "Reproducible synthetic EHR-to-FHIR readmission workflow"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["src"]
